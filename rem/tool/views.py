@@ -8,4 +8,4 @@ from rest_framework.renderers import TemplateHTMLRenderer
 @renderer_classes([TemplateHTMLRenderer])
 def my_html_view(request):
     data = {"message": "Hello, World!"}
-    return Response(data, template_name='my_template.html')
+    return Response(data, template_name='tool/my_template.html')
