@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #'user.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
+    'tool',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +138,5 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.TemplateHTMLRenderer',  # Включаем поддержку HTML рендеринга
     ]
 }
+
+AUTH_USER_MODEL = 'user.CustomUser'

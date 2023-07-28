@@ -1,3 +1,11 @@
 from django.db import models
 
-# Create your models here.
+class BaseTool(models.Model):
+    name = 
+
+class Tool(models.Model):
+    """Класс инструменты"""
+    pass
+
+class Battery():
+    pass
