@@ -24,6 +24,7 @@ from .constants import SCHEMA_VIEW
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('admin/', include('smart_selects.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path("", views.my_html_view, name="my_html_view"),
     path('swagger/', SCHEMA_VIEW.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
