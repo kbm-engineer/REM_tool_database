@@ -1,32 +1,17 @@
 from typing import Iterable, Optional
 from django.db import models
-from smart_selects.db_fields import ChainedForeignKey
-import time
+import random
 
-class UniqueIdentificator(models.Model):
-    nomber = models.TextField(max_length=16, unique=True, blank=True)
-
-    def fill_nomber(self, instance, **kwargs):
-        instance.nomber = str(time.time())
-
-
-class ViewEquipment(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
-    def __str__(self):
-        return self.name
-
-class TypeEquipment(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    view = models.OneToOneField(ViewEquipment, blank=True, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
 
 class BaseMonitoringObject(models.Model):
-    # id_nomber = 
+    id_number = models.IntegerField(unique=True, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    type = models.ForeignKey(TypeEquipment, on_delete=models.CASCADE)
+
+
+    def save(self, *args, **kwargs) -> None:
+        if not self.id_number:
+            self.id_number = random.randint(1000, 9999)  # Генерация случайного числа
+        super(BaseMonitoringObject, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
