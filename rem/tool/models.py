@@ -9,7 +9,7 @@ class BaseMonitoringObject(models.Model):
     create_date = models.DateField(editable=False, )
     update_date = models.DateField(editable=False, blank=True, null=True)
     start_date_use = models.DateField(blank=True, null=True)
-    #days_warranty = models.DateField(blank=True, null=True, verbose_name = "Ост. дней гарантии")
+    #end_warranty = models.DateField(blank=True, null=True, verbose_name = "Ост. дней гарантии")
 
     def save(self, *args, **kwargs) -> None:
         if not self.id_number:
@@ -21,15 +21,17 @@ class BaseMonitoringObject(models.Model):
 
     def calculation_days_warranty(self):
         if self.start_date_use:
-            days_warranty = self.start_date_use + timedelta(days=365)
-            return days_warranty
+            end_warranty = self.start_date_use + timedelta(days=365)
+            return end_warranty
 
     def __str__(self):
         return self.name
     
-    days_warranty = property(calculation_days_warranty)
-    
+    end_warranty = property(calculation_days_warranty)
 
+
+class Guarantee(models.Model):
+    object = models.ForeignKey(BaseMonitoringObject, on_delete=models.CASCADE)
 
 
 class VibratingTamper(BaseMonitoringObject):

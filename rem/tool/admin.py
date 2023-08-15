@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BaseMonitoringObject
+from .models import (BaseMonitoringObject, Guarantee)
 
 @admin.register(BaseMonitoringObject)
 class BaseMonitoringObjectAdmin(admin.ModelAdmin):
@@ -8,4 +8,11 @@ class BaseMonitoringObjectAdmin(admin.ModelAdmin):
                     'create_date',
                     'update_date',
                     'start_date_use',
-                    'days_warranty',)
+                    'end_warranty',
+                    'days_warranty',
+                    )
+
+
+@admin.register(Guarantee)
+class AdminGuarantee(admin.ModelAdmin):
+    list_display = ('object',)
