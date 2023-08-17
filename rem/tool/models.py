@@ -28,7 +28,7 @@ class BaseMonitoringObject(models.Model):
         return self.name
     
     end_warranty = property(calculation_days_warranty)
-
+#TODU Гарантия и ремонты: кто принес, когда принес, что случилось и т.д.
 
 class Guarantee(models.Model):
     object = models.ForeignKey(BaseMonitoringObject, on_delete=models.CASCADE)
