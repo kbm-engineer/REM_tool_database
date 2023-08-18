@@ -6,10 +6,10 @@ class BaseMonitoringObjectAdmin(admin.ModelAdmin):
     list_display = ('id_number',
                     'name',
                     'create_date',
-                    'update_date',
+                    #'update_date',
                     'start_date_use',
                     'end_warranty',
-                    'days_warranty',
+                    'number_days_warranty',
                     )
 
 
