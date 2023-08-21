@@ -32,4 +32,4 @@ class TypeMonitorinAdmin(admin.ModelAdmin):
 
 @admin.register(Production)
 class ProductionAdmin(admin.ModelAdmin):
-    list_display = ('date_production', 'user')
+    list_display = ('date_production', 'user', 'object')

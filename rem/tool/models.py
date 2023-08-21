@@ -57,18 +57,26 @@ class TypeMonitoringObject(models.Model):
 
 
 class BaseMonitoringObject(models.Model):
-    id_number = models.IntegerField(primary_key=True, unique=True, editable=False, verbose_name = "Уникальный номер")
+    id_number = models.CharField(max_length=12, unique=True, editable=False, verbose_name = "Уникальный номер")
     name = models.CharField(max_length=100, unique=True, verbose_name = "Наименование")
     type = models.ForeignKey(TypeMonitoringObject, on_delete = models.CASCADE, verbose_name = "Тип")
     create_date = models.DateField(auto_now_add=True, null=True, editable=False, verbose_name = "Дата создания")
 
     def save(self, *args, **kwargs) -> None:
         if not self.id_number:
-            self.id_number = int(time.time())
+            now_time = str(time.time())
+            self.id_number = f'{now_time[:5]}-{now_time[5:10]}'
         super(BaseMonitoringObject, self).save(*args, **kwargs)
+    
+# import string
+# import random
+
+# def random_numstr(len:int)->str:
+#     char_list = random.choices(string.digits, k=len)
+#     return "".join(char_list)
 
     def __str__(self):
-        return f'{self.name} ({self.id_number})'
+        return f'{self.id_number}  {self.type} "{self.name}"'
 
     class Meta:
 	    verbose_name_plural = "Базовый класс"
