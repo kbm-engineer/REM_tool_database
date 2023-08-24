@@ -3,18 +3,26 @@ from .models import (BaseMonitoringObject,
                      TypeMonitoringObject,
                      ViewMonitoringObject,
                      Production,
+                     QRCode,
                      )
 
 @admin.register(BaseMonitoringObject)
 class BaseMonitoringObjectAdmin(admin.ModelAdmin):
-    list_display = ('id_number',
+    list_display = ('qrcode',
                     'name',
                     'type',
-                    'create_date',
-                    
+                    'get_type_view',
+                    'production',
                     )
     search_fields = ('id_number',)
-    list_filter = ('name', 'type',)
+    list_filter = ('name',
+                   'type',
+                   'type__view',)
+
+    def get_type_view(self, obj):
+        return obj.type.view
+    
+    get_type_view.short_description = 'View'
 
 
 @admin.register(ViewMonitoringObject)
@@ -27,9 +35,35 @@ class ViewMonitoringAdmin(admin.ModelAdmin):
 @admin.register(TypeMonitoringObject)
 class TypeMonitorinAdmin(admin.ModelAdmin):
     list_display = ('type_name',
-                    'view')
+                    'view',
+                    )
 
 
 @admin.register(Production)
 class ProductionAdmin(admin.ModelAdmin):
-    list_display = ('date_production', 'user', 'object')
+    list_display = ('create_date',
+                    'user',
+                    'related_base_monitoring_object',
+                    )
+
+    def related_base_monitoring_object(self, obj):
+        if obj.basemonitoringobject_set.exists():
+            base_monitoring_object = obj.basemonitoringobject_set.first()
+            return f"{base_monitoring_object.name} (ID: {base_monitoring_object.id})"
+        return "Нет связанных объектов"
+    related_base_monitoring_object.short_description = "Связанный объект BaseMonitoringObject"
+
+
+@admin.register(QRCode)
+class QRCodeAdmin(admin.ModelAdmin):
+    list_display = ('id',
+                    'unique_number',
+                    'related_base_monitoring_object',
+                    )
+
+    def related_base_monitoring_object(self, obj):
+        if obj.basemonitoringobject_set.exists():
+            base_monitoring_object = obj.basemonitoringobject_set.first()
+            return f"{base_monitoring_object.name} (ID: {base_monitoring_object.id})"
+        return "Нет связанных объектов"
+    related_base_monitoring_object.short_description = "Связанный объект BaseMonitoringObject"
