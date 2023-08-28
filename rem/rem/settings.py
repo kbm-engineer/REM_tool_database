@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'smart_selects',
     'drf_yasg',
     'tool',
-    'user',
 ]
 
 MIDDLEWARE = [
@@ -140,4 +139,4 @@ REST_FRAMEWORK = {
     ]
 }
 
-AUTH_USER_MODEL = 'user.CustomUser'
+#AUTH_USER_MODEL = 'user.CustomUser'
