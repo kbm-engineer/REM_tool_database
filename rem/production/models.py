@@ -1,4 +1,5 @@
 from django.db import models
+from organization.models import Organization, CustomUser
 import uuid
 
 
@@ -44,7 +45,9 @@ class Parametrs(models.Model):
 
 class Production(models.Model):
     create_date = models.DateField(auto_now_add=True, null=True, verbose_name = "Дата производства")
-    user = models.CharField(max_length=100, verbose_name = "Пользователь")
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, null=True, blank=True, verbose_name = "Организация")
+    collector = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True, verbose_name = "Сборщик")
+
 
     def __str__(self):
         return str(self.create_date)
@@ -58,6 +61,7 @@ class BaseMonitoringObject(models.Model):
     name = models.CharField(max_length=100, verbose_name = "Наименование")
     type = models.ForeignKey(TypeMonitoringObject, on_delete = models.CASCADE, verbose_name = "Тип")
     production = models.ForeignKey(Production, on_delete=models.CASCADE, verbose_name = "Производство", blank=True, null=True)
+    active = models.BooleanField(default=False)
     
     def save(self, *args, **kwargs):
         if not self.qrcode:

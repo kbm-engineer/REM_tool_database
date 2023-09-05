@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My HTML View</title>
+</head>
+<body>
+    Продукты
+    {% for production in productions %}
+    <ul>
+        <li>
+        {{ production.name }}
+    </li>
+    </ul>
+{% endfor %} 
+</body>
+</html>
+
+

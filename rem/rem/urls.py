@@ -18,7 +18,7 @@ from django.urls import path
 from django.contrib import admin
 from django.urls import include, path
 
-from tool import views
+from production import views
 from .constants import SCHEMA_VIEW
 
 

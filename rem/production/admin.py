@@ -13,8 +13,9 @@ class BaseMonitoringObjectAdmin(admin.ModelAdmin):
                     'type',
                     'get_type_view',
                     'production',
+                    'active'
                     )
-    search_fields = ('id_number',)
+    search_fields = ('qrcode__unique_number',)
     list_filter = ('name',
                    'type',
                    'type__view',)
@@ -42,8 +43,9 @@ class TypeMonitorinAdmin(admin.ModelAdmin):
 @admin.register(Production)
 class ProductionAdmin(admin.ModelAdmin):
     list_display = ('create_date',
-                    'user',
                     'related_base_monitoring_object',
+                    'organization',
+                    'collector',
                     )
 
     def related_base_monitoring_object(self, obj):

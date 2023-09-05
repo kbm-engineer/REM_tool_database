@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #'user.apps.UsersConfig',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'smart_selects',
     'drf_yasg',
-    'tool',
+    'production',
+    'organization',
+    'exploitation',
 ]
 
 MIDDLEWARE = [
@@ -139,4 +141,4 @@ REST_FRAMEWORK = {
     ]
 }
 
-#AUTH_USER_MODEL = 'user.CustomUser'
+AUTH_USER_MODEL = 'organization.CustomUser'
