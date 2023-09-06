@@ -6,16 +6,22 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from production.models import BaseMonitoringObject
 from django.shortcuts import render, get_object_or_404
 
+from django.shortcuts import render
+import subprocess
+import os
+
 
 @api_view(['GET'])
 @renderer_classes([TemplateHTMLRenderer])
-def my_html_view(request):
+def test_html(request):
     productions = BaseMonitoringObject.objects.all()
-    #data = {"message": "Hello, World!"}
-    #return Response(data, template_name='production/my_template.html')
-
-
     context = {
             'productions': productions,
         }
-    return render(request, 'production/my_template.html', context)
+    return render(request, 'production/test_html.html', context)
+
+
+def test_st(request):
+    script_path = 'D:/DEV/REM_tool_database/rem/production/test_st.py'
+    subprocess.run(["streamlit", "run", script_path])
+    return render(request, "production/empty.html")
