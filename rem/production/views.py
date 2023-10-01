@@ -19,9 +19,3 @@ def test_html(request):
             'productions': productions,
         }
     return render(request, 'production/test_html.html', context)
-
-
-def test_st(request):
-    script_path = 'D:/DEV/REM_tool_database/rem/production/test_st.py'
-    subprocess.run(["streamlit", "run", script_path])
-    return render(request, "production/empty.html")

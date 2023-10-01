@@ -18,7 +18,7 @@ from django.urls import path
 from django.contrib import admin
 from django.urls import include, path
 
-from production.views import test_html, test_st
+from production.views import test_html
 from .constants import SCHEMA_VIEW
 
 
@@ -26,11 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('admin/', include('smart_selects.urls')),
     #path('api-auth/', include('rest_framework.urls')),
-    path("test_html", test_html, name="my_html_view"),
-    path("test_st", test_st, name="my_html_view"),
+    #path("test_html/", test_html, name="my_html_view"),
+    path('production/', include('production.urls')),
     path('swagger/', SCHEMA_VIEW.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', SCHEMA_VIEW.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
-
-
-    
